@@ -13,10 +13,10 @@ class OpggSpider(scrapy.Spider):
         for tr in tr_list:
             item = OpggspiderItem()
             item['hero'] = tr.xpath('./td[2]/a/strong/text()').extract_first()
-            item['tier'] = tr.xpath('./td[3]/text()').extract_first()
+            item['level'] = tr.xpath('./td[3]/text()').extract_first()
             item['role'] = tr.xpath('./td[4]/img/@alt').extract_first()
             item['win'] = tr.xpath('./td[5]/text()[1]').extract_first()
             item['pick'] = tr.xpath('./td[6]/text()[1]').extract_first()
             item['ban'] = tr.xpath('./td[7]/text()[1]').extract_first()
-            print(item)
-        pass
+            item['tier'] = 'a'
+            yield item

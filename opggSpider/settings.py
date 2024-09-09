@@ -105,13 +105,14 @@ ITEM_PIPELINES = {
    'opggSpider.pipelines.OpggspiderPipeline': 300,
 }
 
-# sys.path.append(os.path.dirname(os.path.abspath('.')))
+sys.path.append(os.path.dirname(os.path.abspath('.')))
 
-BASE_DIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
-PRO_ROOT = os.path.dirname(BASE_DIR)  # 两个项目共同的根目录
+# BASE_DIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
+# PRO_ROOT = os.path.dirname(BASE_DIR)  # 两个项目共同的根目录
 
-sys.path.append(os.path.join(PRO_ROOT, 'opgg_scrapy'))
-sys.path.append(os.path.join(BASE_DIR, 'opggSpider'))
+# sys.path.append(os.path.join(PRO_ROOT, 'opgg_scrapy'))
+# sys.path.append(os.path.join(BASE_DIR, 'opggSpider'))
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'LoLAna.settings'  # 项目名.settings
 django.setup()
+TWISTED_REACTOR = 'twisted.internet.selectreactor.SelectReactor'
