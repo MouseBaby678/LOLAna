@@ -6,7 +6,9 @@ from opggSpider.items import loldataItem
 class loldataSpider(scrapy.Spider):
     name = "loldata"
     allowed_domains = ["op.gg"]
-    start_urls = ["https://www.op.gg/champions"]
+    tiers = ['iron', 'bronze', 'silver', 'gold', 'platinum', 'emerald', 'diamond', 'master', 'grandmaster',
+             'challenger']
+    start_urls = [f"https://www.op.gg/champions?tier={tier}" for tier in tiers]
 
     def parse(self, response):
         tr_list = response.xpath('//*[@id="content-container"]/div[2]/main/div/table/tbody/tr')
@@ -18,5 +20,5 @@ class loldataSpider(scrapy.Spider):
             item['win'] = tr.xpath('./td[5]/text()[1]').extract_first()
             item['pick'] = tr.xpath('./td[6]/text()[1]').extract_first()
             item['ban'] = tr.xpath('./td[7]/text()[1]').extract_first()
-            item['tier'] = 'a'
+            item['tier'] = response.url.split('=')[-1]
             yield item

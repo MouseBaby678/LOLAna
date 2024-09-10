@@ -57,10 +57,7 @@
               </a>
               <ul class="nav nav-subnav">
                 <li> <a href="{% url 'ranked_solo' %}">排位赛</a> </li>
-
                 <li> <a href="{% url 'aram' %}">极地大乱斗</a> </li>
-
-
               </ul>
             </li>
             <li class="nav-item nav-item-has-subnav">
@@ -128,7 +125,7 @@
         </div>
 
         <ul class="navbar-right d-flex align-items-center">
-
+             League of Legends
           <!--切换主题配色-->
 		  <li class="dropdown dropdown-skin">
 		    <span data-bs-toggle="dropdown" class="icon-item">
@@ -277,44 +274,7 @@
 			  </li>
 		    </ul>
 		  </li>
-          <!--End 切换主题配色-->
-{#          <!--个人头像内容-->#}
-{#          <li class="dropdown">#}
-{#            <a href="javascript:void(0)" data-bs-toggle="dropdown" class="dropdown-toggle">#}
-{#              <img class="avatar-md rounded-circle" src="images/users/avatar.jpg" alt="笔下光年" />#}
-{#              <span style="margin-left: 10px;">笔下光年</span>#}
-{#            </a>#}
-{#            <ul class="dropdown-menu dropdown-menu-end">#}
-{#              <li>#}
-{#                <a class="dropdown-item" href="lyear_pages_profile.html"#}
-{#                  href="javascript:void(0)">#}
-{#                  <i class="mdi mdi-account"></i>#}
-{#                  <span>个人信息</span>#}
-{#                </a>#}
-{#              </li>#}
-{#              <li>#}
-{#                <a class="dropdown-item" href="lyear_pages_edit_pwd.html"#}
-{#                  href="javascript:void(0)">#}
-{#                  <i class="mdi mdi-lock-outline"></i>#}
-{#                  <span>修改密码</span>#}
-{#                </a>#}
-{#              </li>#}
-{#              <li>#}
-{#                <a class="dropdown-item" href="javascript:void(0)">#}
-{#                  <i class="mdi mdi-delete"></i>#}
-{#                  <span>清空缓存</span>#}
-{#                </a>#}
-{#              </li>#}
-{#              <li class="dropdown-divider"></li>#}
-{#              <li>#}
-{#                <a class="dropdown-item" href="lyear_pages_login_1.html">#}
-{#                  <i class="mdi mdi-logout-variant"></i>#}
-{#                  <span>退出登录</span>#}
-{#                </a>#}
-{#              </li>#}
-{#            </ul>#}
-{#          </li>#}
-          <!--End 个人头像内容-->
+
         </ul>
 
       </nav>
@@ -333,12 +293,13 @@
             <div class="card bg-primary text-white">
               <div class="card-body">
                 <div class="d-flex justify-content-between">
-                  <span class="avatar-md rounded-circle bg-white bg-opacity-25 avatar-box">
-                    <i class="mdi mdi-currency-cny fs-4"></i>
-                  </span>
-                  <span class="fs-4">102,125.00</span>
+<span class="avatar-md rounded-circle bg-white bg-opacity-25 avatar-box">
+  <img src="https://opgg-static.akamaized.net/meta/images/lol/14.17.1/champion/Jhin.png?image=e_upscale,c_crop,h_103,w_103,x_9,y_9/q_auto:good,f_webp,w_160,h_160&v=1724034092925" alt="Jhin Avatar">
+</span>
+
+                  <span class="fs-4">{{ most_played_games }}场</span>
                 </div>
-                <div class="text-end">今日收入</div>
+                <div class="text-end">登场次数最多的英雄是   {{ most_played_hero }}</div>
               </div>
             </div>
           </div>
@@ -347,12 +308,13 @@
             <div class="card bg-danger text-white">
               <div class="card-body">
                 <div class="d-flex justify-content-between">
-                  <span class="avatar-md rounded-circle bg-white bg-opacity-25 avatar-box">
-                    <i class="mdi mdi-account fs-4"></i>
-                  </span>
-                  <span class="fs-4">920,000</span>
+                 <span class="avatar-md rounded-circle bg-white bg-opacity-25 avatar-box">
+  <img src="https://opgg-static.akamaized.net/meta/images/lol/14.17.1/champion/Draven.png?image=e_upscale,c_crop,h_103,w_103,x_9,y_9/q_auto:good,f_webp,w_160,h_160&v=1724034092925" alt="Draven Avatar">
+</span>
+
+                  <span class="fs-4">{{ most_gold_amount}}</span>
                 </div>
-                <div class="text-end">用户总数</div>
+                <div class="text-end">最能打钱的英雄是 {{ most_gold_hero }}</div>
               </div>
             </div>
           </div>
@@ -361,12 +323,13 @@
             <div class="card bg-success text-white">
               <div class="card-body">
                 <div class="d-flex justify-content-between">
-                  <span class="avatar-md rounded-circle bg-white bg-opacity-25 avatar-box">
-                    <i class="mdi mdi-arrow-down-bold fs-4"></i>
-                  </span>
-                  <span class="fs-4">34,005,000</span>
+<span class="avatar-md rounded-circle bg-white bg-opacity-25 avatar-box">
+  <img src="https://opgg-static.akamaized.net/meta/images/lol/14.17.1/champion/Sivir.png?image=e_upscale,c_crop,h_103,w_103,x_9,y_9/q_auto:good,f_webp,w_160,h_160&v=1724034092925" alt="Sivir Avatar">
+</span>
+
+                  <span class="fs-4">补刀数{{ most_cs_amount }}</span>
                 </div>
-                <div class="text-end">下载总量</div>
+                <div class="text-end">补刀最多的英雄是 {{ most_cs_hero }}</div>
               </div>
             </div>
           </div>
@@ -375,12 +338,13 @@
             <div class="card bg-purple text-white">
               <div class="card-body">
                 <div class="d-flex justify-content-between">
-                  <span class="avatar-md rounded-circle bg-white bg-opacity-25 avatar-box">
-                    <i class="mdi mdi-comment-outline fs-4"></i>
-                  </span>
-                  <span class="fs-4">153 条</span>
+<span class="avatar-md rounded-circle bg-white bg-opacity-25 avatar-box">
+  <img src="https://opgg-static.akamaized.net/meta/images/lol/latest/champion/Aurora.png?image=e_upscale,c_crop,h_103,w_103,x_9,y_9/q_auto:good,f_webp,w_160,h_160&v=1724034092925" alt="Aurora Avatar">
+</span>
+
+                  <span class="fs-4">{{ most_ban_rate }}%</span>
                 </div>
-                <div class="text-end">新增留言</div>
+                <div class="text-end">禁用率最高的英雄是 {{ most_ban_hero }}</div>
               </div>
             </div>
           </div>
@@ -392,7 +356,7 @@
           <div class="col-md-6">
             <div class="card">
               <div class="card-header">
-                <div class="card-title">每周用户</div>
+                <div class="card-title">全模式全段位英雄胜率前七位</div>
               </div>
               <div class="card-body">
                 <canvas class="js-chartjs-bars"></canvas>
@@ -403,7 +367,7 @@
           <div class="col-md-6">
             <div class="card">
               <div class="card-header">
-                <div class="card-title">交易历史记录</div>
+                <div class="card-title">使用波动图表</div>
               </div>
               <div class="card-body">
                 <canvas class="js-chartjs-lines"></canvas>
@@ -418,120 +382,48 @@
           <div class="col-lg-12">
             <div class="card">
               <header class="card-header">
-                <div class="card-title">项目信息</div>
+                <div class="card-title">英雄热榜(top10)</div>
               </header>
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>项目名称</th>
-                        <th>开始日期</th>
-                        <th>截止日期</th>
-                        <th>状态</th>
-                        <th>进度</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>设计新主题</td>
-                        <td>10/02/2019</td>
-                        <td>12/05/2019</td>
-                        <td><span class="badge bg-warning">待定</span></td>
-                        <td>
-                          <div class="progress progress-xs">
-                            <div class="progress-bar progress-bar-striped bg-warning" style="width: 45%;"></div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>网站重新设计</td>
-                        <td>01/03/2019</td>
-                        <td>12/04/2019</td>
-                        <td><span class="badge bg-success">进行中</span></td>
-                        <td>
-                          <div class="progress progress-xs">
-                            <div class="progress-bar progress-bar-striped bg-success" style="width: 30%;"></div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>模型设计</td>
-                        <td>10/10/2019</td>
-                        <td>12/11/2019</td>
-                        <td><span class="badge bg-warning">待定</span></td>
-                        <td>
-                          <div class="progress progress-xs">
-                            <div class="progress-bar progress-bar-striped bg-warning" style="width: 25%;"></div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>后台管理系统模板设计</td>
-                        <td>25/01/2019</td>
-                        <td>09/05/2019</td>
-                        <td><span class="badge bg-success">进行中</span></td>
-                        <td>
-                          <div class="progress progress-xs">
-                            <div class="progress-bar progress-bar-striped bg-success" style="width: 55%;"></div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>5</td>
-                        <td>前端设计</td>
-                        <td>10/10/2019</td>
-                        <td>12/12/2019</td>
-                        <td><span class="badge bg-danger">未开始</span></td>
-                        <td>
-                          <div class="progress progress-xs">
-                            <div class="progress-bar progress-bar-striped bg-danger" style="width: 0%;"></div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>6</td>
-                        <td>桌面软件测试</td>
-                        <td>10/01/2019</td>
-                        <td>29/03/2019</td>
-                        <td><span class="badge bg-success">进行中</span></td>
-                        <td>
-                          <div class="progress progress-xs">
-                            <div class="progress-bar progress-bar-striped bg-success" style="width: 75%;"></div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>7</td>
-                        <td>APP改版开发</td>
-                        <td>25/02/2019</td>
-                        <td>12/05/2019</td>
-                        <td><span class="badge bg-danger">暂停</span></td>
-                        <td>
-                          <div class="progress progress-xs">
-                            <div class="progress-bar progress-bar-striped bg-danger" style="width: 15%;"></div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>8</td>
-                        <td>Logo设计</td>
-                        <td>10/02/2019</td>
-                        <td>01/03/2019</td>
-                        <td><span class="badge bg-warning">完成</span></td>
-                        <td>
-                          <div class="progress progress-xs">
-                            <div class="progress-bar progress-bar-striped bg-success" style="width: 100%;"></div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>统计（全模式全段位全球）#</th>
+            <th>英雄</th>
+            <th>总场次</th>
+            <th>胜率</th>
+            <th>每局登场率</th>
+            <th>热度</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stat in hero_statistics %}
+        <tr>
+            <td>{{ forloop.counter }}</td> <!-- 统计编号 -->
+            <td>{{ stat.hero }}</td> <!-- 英雄 -->
+            <td>{{ stat.games_played }}</td> <!-- 总场次 -->
+            <td>{{ stat.win }}%</td> <!-- 胜率 -->
+            <td>{{ stat.pick }}%</td> <!-- 每局登场率 -->
+            <td>
+                <div class="progress progress-xs">
+                    <div class="progress-bar progress-bar-striped
+                        {% if stat.popularity < 10 %}
+                            bg-success
+                        {% elif stat.popularity < 25 %}
+                            bg-warning
+                        {% elif stat.popularity < 50 %}
+                            bg-danger
+                        {% else %}
+                            bg-success
+                        {% endif %}
+                    " style="width: {{ stat.popularity }}%;"></div>
+                </div>
+            </td> <!-- 热度 -->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
                 </div>
               </div>
             </div>
@@ -559,24 +451,26 @@ $(document).ready(function(e) {
 	var $dashChartBarsCnt = jQuery('.js-chartjs-bars')[0].getContext('2d'),
 		$dashChartLinesCnt = jQuery('.js-chartjs-lines')[0].getContext('2d');
 
-	var $dashChartBarsData = {
-		labels: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-		datasets: [{
-			label: '注册用户',
-			borderWidth: 1,
-			borderColor: 'rgba(0, 0, 0, 0)',
-			backgroundColor: 'rgba(0, 123, 255,0.5)',
-			hoverBackgroundColor: "rgba(0, 123, 255, 0.7)",
-			hoverBorderColor: "rgba(0, 0, 0, 0)",
-			data: [2500, 1500, 1200, 3200, 4800, 3500, 1500]
-		}]
-	};
+var heroNames = {{ top_7_hero_names|safe }};
+        var winrates = {{ top_7_winrates|safe }};
+
+        var $dashChartBarsData = {
+            labels: heroNames, // 使用英雄名称作为标签
+            datasets: [{
+                label: '胜率 (%)',
+                borderWidth: 1,
+                borderColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: 'rgba(0, 123, 255,0.5)',
+                hoverBackgroundColor: "rgba(0, 123, 255, 0.7)",
+                hoverBorderColor: "rgba(0, 0, 0, 0)",
+                data: winrates // 使用胜率数据
+            }]
+        };
 	var $dashChartLinesData = {
-		labels: ['2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013',
-			'2014'
+		labels: ['黑铁', '青铜', '白银', '黄金', '铂金', '钻石', ' 宗师', '大师', '王者', '翡翠'
 		],
 		datasets: [{
-			label: '交易资金',
+			label: '使用率',
 			data: [20, 25, 40, 30, 45, 40, 55, 40, 48, 40, 42, 50],
 			borderColor: '#007bff',
 			backgroundColor: 'rgba(0, 123, 255, 0.175)',
