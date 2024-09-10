@@ -20,7 +20,10 @@ from django.urls import path
 from Analysis import views
 
 urlpatterns = [
+
+
     path('admin/', admin.site.urls),
-    path("index/", views.index),
+    path("", views.index),
+    path("hero_list/", views.List.as_view()),
 
 ]
