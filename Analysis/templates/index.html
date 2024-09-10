@@ -37,7 +37,7 @@
 
       <!-- logo -->
       <div id="logo" class="sidebar-header">
-        <a href="index.html"><img src="images/logo-sidebar.png" title="LightYear" alt="LightYear" /></a>
+        <a href="{% url 'index' %}"><img src="https://game.gtimg.cn/images/lol/act/img/spell/EliseHumanW.png" title="LightYear" alt="LightYear" /></a>
       </div>
       <div class="lyear-layout-sidebar-info lyear-scroll">
 
@@ -45,7 +45,7 @@
 
           <ul class="nav-drawer">
             <li class="nav-item active">
-              <a href="index.html">
+              <a href="{% url 'index' %}">
                 <i class="mdi mdi-home-city-outline"></i>
                 <span>后台首页</span>
               </a>
@@ -56,10 +56,10 @@
                 <span>英雄胜率总览</span>
               </a>
               <ul class="nav nav-subnav">
-                <li> <a href="lyear_layout_break_point.html">排位赛（单排）</a> </li>
-                <li> <a href="lyear_layout_containers.html">排位赛（组排）</a> </li>
-                <li> <a href="lyear_layout_grid.html">极地大乱斗</a> </li>
-                <li> <a href="lyear_layout_columns.html">斗魂竞技场</a> </li>
+                <li> <a href="{% url 'ranked_solo' %}">排位赛</a> </li>
+
+                <li> <a href="{% url 'aram' %}">极地大乱斗</a> </li>
+
 
               </ul>
             </li>
@@ -69,11 +69,11 @@
                 <span>各位置最强英雄</span>
               </a>
               <ul class="nav nav-subnav">
-                <li> <a href="lyear_content_typography.html">上路</a> </li>
-                <li> <a href="lyear_content_images.html">中路</a> </li>
-                <li> <a href="lyear_content_tables.html">下路</a> </li>
-                  <li> <a href="lyear_content_tables.html">打野</a> </li>
-                <li> <a href="lyear_content_figures.html">辅助</a> </li>
+                <li> <a href="{% url 'top' %}">上路</a> </li>
+                <li> <a href="{% url 'middle' %}">中路</a> </li>
+                <li> <a href="{% url 'bottom' %}">下路</a> </li>
+                  <li> <a href="{% url 'jungle' %}">打野</a> </li>
+                <li> <a href="{% url 'support' %}">辅助</a> </li>
               </ul>
             </li>
             <li class="nav-item nav-item-has-subnav">
@@ -82,9 +82,8 @@
                 <span>组建你的最佳阵容</span>
               </a>
               <ul class="nav nav-subnav">
-                <li> <a href="lyear_forms_overview.html">召唤师峡谷</a> </li>
-                <li> <a href="lyear_forms_control.html">极地大乱斗</a> </li>
-                <li> <a href="lyear_forms_select.html">斗魂竞技场</a> </li>
+                <li> <a href="{% url 'bestteam_normal' %}">召唤师峡谷</a> </li>
+                <li> <a href="{% url 'bestteam_aram' %}">极地大乱斗</a> </li>
 
               </ul>
             </li>
