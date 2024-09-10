@@ -24,6 +24,6 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path("", views.index),
-    path("hero_list/", views.List.as_view()),
+    # path("hero_list/", views.List.as_view()),
 
 ]
