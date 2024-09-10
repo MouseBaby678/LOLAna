@@ -1,17 +1,17 @@
 import scrapy
 
-from opggSpider.items import OpggspiderItem
+from opggSpider.items import loldataItem
 
 
-class OpggSpider(scrapy.Spider):
-    name = "opgg"
+class loldataSpider(scrapy.Spider):
+    name = "loldata"
     allowed_domains = ["op.gg"]
     start_urls = ["https://www.op.gg/champions"]
 
     def parse(self, response):
         tr_list = response.xpath('//*[@id="content-container"]/div[2]/main/div/table/tbody/tr')
         for tr in tr_list:
-            item = OpggspiderItem()
+            item = loldataItem()
             item['hero'] = tr.xpath('./td[2]/a/strong/text()').extract_first()
             item['level'] = tr.xpath('./td[3]/text()').extract_first()
             item['role'] = tr.xpath('./td[4]/img/@alt').extract_first()

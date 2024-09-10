@@ -87,7 +87,7 @@ DATABASES = {
         "NAME": "lol_op",
         "HOST": "127.0.0.1",
         "USER": "root",
-        "PASSWORD": "zhyzs2580",
+        "PASSWORD": "123321",
 
         "PORT": "3306",
     }

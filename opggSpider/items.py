@@ -18,5 +18,7 @@ from Analysis import models
 #     pick = scrapy.Field()
 #     ban = scrapy.Field()
 #     pass
-class OpggspiderItem(DjangoItem):
+class loldataItem(DjangoItem):
     django_model = models.loldata
+class hero_statisticsItem(DjangoItem):
+    django_model = models.hero_statistics
