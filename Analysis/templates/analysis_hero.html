@@ -33,7 +33,7 @@
 <div class="lyear-layout-web">
   <div class="lyear-layout-container">
     <!--左侧导航-->
-<aside class="lyear-layout-sidebar">
+    <aside class="lyear-layout-sidebar">
 
       <!-- logo -->
       <div id="logo" class="sidebar-header">
@@ -325,103 +325,91 @@
     <!--End 头部信息-->
 
     <!--页面主要内容-->
+<!-- 页面主要内容 -->
 <main class="lyear-layout-content">
-  <div class="container-fluid">
-    <div class="row">
-      <!-- 条形图容器 -->
-      <div class="col-lg-6 mb-3">
-        <h6>条形图</h6>
-        <canvas id="chart-vbar-2" width="400" height="250"></canvas>
-      </div>
-      <!-- 饼图容器 -->
-      <div class="col-lg-6 mb-3">
-        <h6>饼图</h6>
-        <canvas id="chart-pie" width="400" height="250"></canvas>
-      </div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <!-- 用户输入英雄名表单 -->
+            <div class="col-lg-6 mb-4 text-center">
+                <form id="heroForm" method="POST" action="{% url 'analysis_hero' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="heroName">输入英雄名:</label>
+                        <input type="text" class="form-control" id="heroName" name="heroName" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">提交</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <!-- 折线图容器 -->
+            <div class="col-lg-10 col-md-12 mb-3">
+                <h6 class="text-center">英雄段位胜率折线图</h6>
+                <canvas id="chart-line-hero"></canvas>
+            </div>
+        </div>
     </div>
-  </div>
 </main>
 
-
-
-
-
-    <!--End 页面主要内容-->
-  </div>
-</div>
-
+<!-- 引入必要的 JS 库 -->
 <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/perfect-scrollbar.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery.cookie.min.js' %}"></script>
-<!--引入chart插件js-->
 <script type="text/javascript" src="{% static 'js/chart.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/main.min.js' %}"></script>
+
 <script type="text/javascript">
-        $(document).ready(function() {
-    // 条形图数据
-    new Chart($('#chart-vbar-2'), {
-        type: 'bar',
+    // 判断是否有数据
+    {% if win_rates %}
+    new Chart($("#chart-line-hero"), {
+        type: 'line',
         data: {
-            labels: {{ top_hero_names|safe }},
+            labels: {{ tiers|safe }},  // X轴为段位
             datasets: [
                 {
-                    label: '胜率',
-                    data: {{ top_win_rates|safe }},
-                    backgroundColor: 'rgba(51, 202, 187, 0.5)',
-                    borderColor: '#33cabb',
-                    borderWidth: 2,
-                },
-                {
-                    label: '总场次',
-                    data: {{ top_games_played|safe }},
-                    backgroundColor: 'rgba(244, 66, 54, 0.5)',
-                    borderColor: '#f96868',
-                    borderWidth: 2,
+                    label: '{{ hero_name }}的胜率',
+                    data: {{ win_rates|safe }},  // 胜率数据
+                    borderColor: "#007bff",
+                    backgroundColor: "rgba(0, 123, 255, 0.3)",
+                    fill: true,
+                    pointStyle: 'circle',
+                    pointRadius: 5,
+                    pointHoverRadius: 7
                 }
             ]
         },
         options: {
             responsive: true,
+              // 确保图表可以随容器大小调整
             plugins: {
-                legend: {
-                    position: 'top',
-                },
                 title: {
                     display: true,
-                    text: '条形图：胜率前7英雄'
+                    text: '{{ hero_name }}在不同段位的胜率'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.parsed.y}%`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    }
                 }
             }
         }
     });
-
-    // 饼图数据
-    new Chart($('#chart-pie'), {
-        type: 'pie',
-        data: {
-            labels: {{ pie_labels|safe }},
-            datasets: [{
-                label: '出场比例',
-                data: {{ pie_data|safe }},
-                backgroundColor: ["#f44236", "#faa64b", "#fcc525", "#15c377", "#007bff", "#ff5733", "#33ff57"],
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: '饼图：各英雄出场比例'
-                }
-            }
-        }
-    });
-});
-
+    {% endif %}
 </script>
 </body>
 </html>

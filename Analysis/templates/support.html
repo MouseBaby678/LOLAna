@@ -33,7 +33,7 @@
 <div class="lyear-layout-web">
   <div class="lyear-layout-container">
     <!--左侧导航-->
-    <aside class="lyear-layout-sidebar">
+   <aside class="lyear-layout-sidebar">
 
       <!-- logo -->
       <div id="logo" class="sidebar-header">
@@ -57,10 +57,7 @@
               </a>
               <ul class="nav nav-subnav">
                 <li> <a href="{% url 'ranked_solo' %}">排位赛</a> </li>
-
                 <li> <a href="{% url 'aram' %}">极地大乱斗</a> </li>
-
-
               </ul>
             </li>
             <li class="nav-item nav-item-has-subnav">
@@ -85,7 +82,6 @@
                 <li> <a href="{% url 'bestteam_normal' %}">召唤师峡谷</a> </li>
                 <li> <a href="{% url 'bestteam_aram' %}">极地大乱斗</a> </li>
 
-
               </ul>
             </li>
             <li class="nav-item nav-item-has-subnav">
@@ -93,6 +89,11 @@
                 <i class="mdi mdi-tune"></i>
                 <span>相关数据总览</span>
               </a>
+                <ul class="nav nav-subnav">
+                <li> <a href="{% url 'analysis' %}">数据展示</a> </li>
+                <li> <a href="{% url 'analysis_hero' %}">英雄数据分析</a> </li>
+
+              </ul>
 
             </li>
 

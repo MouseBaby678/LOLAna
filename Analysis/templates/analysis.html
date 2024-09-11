@@ -33,7 +33,7 @@
 <div class="lyear-layout-web">
   <div class="lyear-layout-container">
     <!--左侧导航-->
-<aside class="lyear-layout-sidebar">
+    <aside class="lyear-layout-sidebar">
 
       <!-- logo -->
       <div id="logo" class="sidebar-header">
@@ -328,20 +328,33 @@
 <main class="lyear-layout-content">
   <div class="container-fluid">
     <div class="row">
-      <!-- 条形图容器 -->
+      <!-- 水平条形图容器 - KDA -->
       <div class="col-lg-6 mb-3">
-        <h6>条形图</h6>
-        <canvas id="chart-vbar-2" width="400" height="250"></canvas>
+        <h6>英雄 KDA 前 7 名</h6>
+        <canvas id="chart-hbar-kda" width="400" height="250"></canvas>
       </div>
-      <!-- 饼图容器 -->
+
+      <!-- 水平条形图容器 - Gold -->
       <div class="col-lg-6 mb-3">
-        <h6>饼图</h6>
-        <canvas id="chart-pie" width="400" height="250"></canvas>
+        <h6>英雄 Gold 前 7 名</h6>
+        <canvas id="chart-hbar-gold" width="400" height="250"></canvas>
+      </div>
+
+      <!-- 水平条形图容器 - CS -->
+      <div class="col-lg-6 mb-3">
+        <h6>英雄 CS 前 7 名</h6>
+        <canvas id="chart-hbar-cs" width="400" height="250"></canvas>
+      </div>
+
+      <!-- 水平条形图容器 - Pick -->
+      <div class="col-lg-6 mb-3">
+        <h6>英雄 Pick 前 7 名</h6>
+        <canvas id="chart-hbar-pick" width="400" height="250"></canvas>
       </div>
     </div>
   </div>
 </main>
-
+<!-- Bootstrap Modal -->
 
 
 
@@ -355,73 +368,151 @@
 <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/perfect-scrollbar.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery.cookie.min.js' %}"></script>
-<!--引入chart插件js-->
 <script type="text/javascript" src="{% static 'js/chart.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/main.min.js' %}"></script>
+
 <script type="text/javascript">
-        $(document).ready(function() {
-    // 条形图数据
-    new Chart($('#chart-vbar-2'), {
-        type: 'bar',
-        data: {
-            labels: {{ top_hero_names|safe }},
-            datasets: [
-                {
-                    label: '胜率',
-                    data: {{ top_win_rates|safe }},
-                    backgroundColor: 'rgba(51, 202, 187, 0.5)',
-                    borderColor: '#33cabb',
-                    borderWidth: 2,
-                },
-                {
-                    label: '总场次',
-                    data: {{ top_games_played|safe }},
-                    backgroundColor: 'rgba(244, 66, 54, 0.5)',
-                    borderColor: '#f96868',
-                    borderWidth: 2,
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: '条形图：胜率前7英雄'
-                }
-            }
+$(document).ready(function() {
+  // KDA 图表
+  new Chart($('#chart-hbar-kda'), {
+    type: 'bar',
+    data: {
+      labels: {{ kda_hero_names|safe }},
+      datasets: [{
+        label: 'KDA',
+        data: {{ kdas|safe }},
+        borderColor: "#33cabb",
+        backgroundColor: "rgba(51, 202, 187, 0.5)",
+        borderWidth: 2,
+        borderRadius: 5,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      elements: {
+        bar: {
+          borderWidth: 2,
         }
-    });
+      },
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: '英雄 KDA 前 7 名'
+        }
+      }
+    },
+  });
 
-    // 饼图数据
-    new Chart($('#chart-pie'), {
-        type: 'pie',
-        data: {
-            labels: {{ pie_labels|safe }},
-            datasets: [{
-                label: '出场比例',
-                data: {{ pie_data|safe }},
-                backgroundColor: ["#f44236", "#faa64b", "#fcc525", "#15c377", "#007bff", "#ff5733", "#33ff57"],
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: '饼图：各英雄出场比例'
-                }
-            }
+  // Gold 图表
+  new Chart($('#chart-hbar-gold'), {
+    type: 'bar',
+    data: {
+      labels: {{ gold_hero_names|safe }},
+      datasets: [{
+        label: 'Gold',
+        data: {{ golds|safe }},
+        borderColor: "#f4d03f",
+        backgroundColor: "rgba(244, 192, 63, 0.5)",
+        borderWidth: 2,
+        borderRadius: 5,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      elements: {
+        bar: {
+          borderWidth: 2,
         }
-    });
+      },
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: '英雄 Gold 前 7 名'
+        }
+      }
+    },
+  });
+
+  // CS 图表
+  new Chart($('#chart-hbar-cs'), {
+    type: 'bar',
+    data: {
+      labels: {{ cs_hero_names|safe }},
+      datasets: [{
+        label: 'CS',
+        data: {{ css|safe }},
+        borderColor: "#8e44ad",
+        backgroundColor: "rgba(142, 68, 173, 0.5)",
+        borderWidth: 2,
+        borderRadius: 5,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      elements: {
+        bar: {
+          borderWidth: 2,
+        }
+      },
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: '英雄 CS 前 7 名'
+        }
+      }
+    },
+  });
+
+  // Pick 图表
+  new Chart($('#chart-hbar-pick'), {
+    type: 'bar',
+    data: {
+      labels: {{ pick_hero_names|safe }},
+      datasets: [{
+        label: 'Pick',
+        data: {{ picks|safe }},
+        borderColor: "#27ae60",
+        backgroundColor: "rgba(39, 174, 96, 0.5)",
+        borderWidth: 2,
+        borderRadius: 5,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      elements: {
+        bar: {
+          borderWidth: 2,
+        }
+      },
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: '英雄 Pick 前 7 名'
+        }
+      }
+    },
+  });
 });
-
 </script>
 </body>
 </html>

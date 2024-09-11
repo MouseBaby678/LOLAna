@@ -35,81 +35,85 @@
         <!--左侧导航-->
         <aside class="lyear-layout-sidebar">
 
-            <!-- logo -->
-            <div id="logo" class="sidebar-header">
-                <a href="{% url 'index' %}"><img src="https://game.gtimg.cn/images/lol/act/img/spell/EliseHumanW.png"
-                                                 title="LightYear" alt="LightYear"/></a>
-            </div>
-            <div class="lyear-layout-sidebar-info lyear-scroll">
+      <!-- logo -->
+      <div id="logo" class="sidebar-header">
+        <a href="{% url 'index' %}"><img src="https://game.gtimg.cn/images/lol/act/img/spell/EliseHumanW.png" title="LightYear" alt="LightYear" /></a>
+      </div>
+      <div class="lyear-layout-sidebar-info lyear-scroll">
 
-                <nav class="sidebar-main">
+        <nav class="sidebar-main">
 
-                    <ul class="nav-drawer">
-                        <li class="nav-item active">
-                            <a href="{% url 'index' %}">
-                                <i class="mdi mdi-home-city-outline"></i>
-                                <span>后台首页</span>
-                            </a>
-                        </li>
-                        <li class="nav-item nav-item-has-subnav">
-                            <a href="javascript:void(0)">
-                                <i class="mdi mdi-television-guide"></i>
-                                <span>英雄胜率总览</span>
-                            </a>
-                            <ul class="nav nav-subnav">
-                                <li><a href="{% url 'ranked_solo' %}">排位赛</a></li>
+          <ul class="nav-drawer">
+            <li class="nav-item active">
+              <a href="{% url 'index' %}">
+                <i class="mdi mdi-home-city-outline"></i>
+                <span>后台首页</span>
+              </a>
+            </li>
+            <li class="nav-item nav-item-has-subnav">
+              <a href="javascript:void(0)">
+                <i class="mdi mdi-television-guide"></i>
+                <span>英雄胜率总览</span>
+              </a>
+              <ul class="nav nav-subnav">
+                <li> <a href="{% url 'ranked_solo' %}">排位赛</a> </li>
+                <li> <a href="{% url 'aram' %}">极地大乱斗</a> </li>
+              </ul>
+            </li>
+            <li class="nav-item nav-item-has-subnav">
+              <a href="javascript:void(0)">
+                <i class="mdi mdi-silo"></i>
+                <span>各位置最强英雄</span>
+              </a>
+              <ul class="nav nav-subnav">
+                <li> <a href="{% url 'top' %}">上路</a> </li>
+                <li> <a href="{% url 'middle' %}">中路</a> </li>
+                <li> <a href="{% url 'bottom' %}">下路</a> </li>
+                  <li> <a href="{% url 'jungle' %}">打野</a> </li>
+                <li> <a href="{% url 'support' %}">辅助</a> </li>
+              </ul>
+            </li>
+            <li class="nav-item nav-item-has-subnav">
+              <a href="javascript:void(0)">
+                <i class="mdi mdi-map-outline"></i>
+                <span>组建你的最佳阵容</span>
+              </a>
+              <ul class="nav nav-subnav">
+                <li> <a href="{% url 'bestteam_normal' %}">召唤师峡谷</a> </li>
+                <li> <a href="{% url 'bestteam_aram' %}">极地大乱斗</a> </li>
 
-                                <li><a href="{% url 'aram' %}">极地大乱斗</a></li>
+              </ul>
+            </li>
+            <li class="nav-item nav-item-has-subnav">
+              <a href="javascript:void(0)">
+                <i class="mdi mdi-tune"></i>
+                <span>相关数据总览</span>
+              </a>
+                <ul class="nav nav-subnav">
+                <li> <a href="{% url 'analysis' %}">数据展示</a> </li>
+                <li> <a href="{% url 'analysis_hero' %}">英雄数据分析</a> </li>
 
-                            </ul>
-                        </li>
-                        <li class="nav-item nav-item-has-subnav">
-                            <a href="javascript:void(0)">
-                                <i class="mdi mdi-silo"></i>
-                                <span>各位置最强英雄</span>
-                            </a>
-                            <ul class="nav nav-subnav">
-                                <li><a href="{% url 'top' %}">上路</a></li>
-                                <li><a href="{% url 'middle' %}">中路</a></li>
-                                <li><a href="{% url 'bottom' %}">下路</a></li>
-                                <li><a href="{% url 'jungle' %}">打野</a></li>
-                                <li><a href="{% url 'support' %}">辅助</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item nav-item-has-subnav">
-                            <a href="javascript:void(0)">
-                                <i class="mdi mdi-map-outline"></i>
-                                <span>组建你的最佳阵容</span>
-                            </a>
-                            <ul class="nav nav-subnav">
-                                <li><a href="{% url 'bestteam_normal' %}">召唤师峡谷</a></li>
-                                <li><a href="{% url 'bestteam_aram' %}">极地大乱斗</a></li>
+              </ul>
+
+            </li>
 
 
-                            </ul>
-                        </li>
-                        <li class="nav-item nav-item-has-subnav">
-                            <a href="javascript:void(0)">
-                                <i class="mdi mdi-tune"></i>
-                                <span>相关数据总览</span>
-                            </a>
-
-                        </li>
 
 
-                    </ul>
-                </nav>
 
-                {#        <div class="sidebar-footer">#}
-                {#          <p class="copyright">#}
-                {#            <span>Copyright &copy; 2022. </span>#}
-                {#            <a target="_blank" href="http://www.bixiaguangnian.com">笔下光年</a>#}
-                {#            <span> All rights reserved.</span>#}
-                {#          </p>#}
-                {#        </div>#}
-            </div>
+          </ul>
+        </nav>
 
-        </aside>
+{#        <div class="sidebar-footer">#}
+{#          <p class="copyright">#}
+{#            <span>Copyright &copy; 2022. </span>#}
+{#            <a target="_blank" href="http://www.bixiaguangnian.com">笔下光年</a>#}
+{#            <span> All rights reserved.</span>#}
+{#          </p>#}
+{#        </div>#}
+      </div>
+
+    </aside>
         <!--End 左侧导航-->
 
         <!--头部信息-->
