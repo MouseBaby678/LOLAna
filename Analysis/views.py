@@ -266,13 +266,113 @@ def bestteam_normal(request):
         return render(request, 'bestteam_normal.html')
 
 def bottom(request):
-    return render(request, 'bottom.html')
+    # 获取前五个英雄的名字
+    top_heroes = list(
+        loldata.objects.filter(role='下路', tier='challenger').order_by('id').values_list('hero', flat=True)[:5])
+
+    # 使用这些英雄名字进行查询
+    hero_statistics_data = hero_statistics.objects.filter(
+        hero__in=top_heroes,
+        tier='all',
+        queue_type='ranked'
+    )
+
+    # 转换查询集为列表以便处理
+    hero_statistics_list = list(hero_statistics_data.values('hero', 'win', 'pick'))
+
+    # 提取数据
+    heroes = [item['hero'] for item in hero_statistics_list]
+    win_rates = [item['win'] for item in hero_statistics_list]
+    pick_rates = [item['pick'] for item in hero_statistics_list]
+
+    # 计算平均值
+    avg_cs = hero_statistics_data.aggregate(Avg('cs'))['cs__avg']
+    avg_kda = hero_statistics_data.aggregate(Avg('kda'))['kda__avg']
+    avg_gold = hero_statistics_data.aggregate(Avg('gold'))['gold__avg']
+    avg_games_played = hero_statistics_data.aggregate(Avg('games_played'))['games_played__avg']
+
+    return render(request, 'bottom.html', {
+        'avg_cs': avg_cs,
+        'avg_kda': avg_kda,
+        'avg_gold': avg_gold,
+        'avg_games_played': avg_games_played,
+        'heroes': heroes,
+        'win_rates': win_rates,
+        'pick_rates': pick_rates
+    })
 
 def jungle(request):
-    return render(request, 'jungle.html')
+    # 获取前五个英雄的名字
+    top_heroes = list(
+        loldata.objects.filter(role='打野', tier='challenger').order_by('id').values_list('hero', flat=True)[:5])
+
+    # 使用这些英雄名字进行查询
+    hero_statistics_data = hero_statistics.objects.filter(
+        hero__in=top_heroes,
+        tier='all',
+        queue_type='ranked'
+    )
+
+    # 转换查询集为列表以便处理
+    hero_statistics_list = list(hero_statistics_data.values('hero', 'win', 'pick'))
+
+    # 提取数据
+    heroes = [item['hero'] for item in hero_statistics_list]
+    win_rates = [item['win'] for item in hero_statistics_list]
+    pick_rates = [item['pick'] for item in hero_statistics_list]
+
+    # 计算平均值
+    avg_cs = hero_statistics_data.aggregate(Avg('cs'))['cs__avg']
+    avg_kda = hero_statistics_data.aggregate(Avg('kda'))['kda__avg']
+    avg_gold = hero_statistics_data.aggregate(Avg('gold'))['gold__avg']
+    avg_games_played = hero_statistics_data.aggregate(Avg('games_played'))['games_played__avg']
+
+    return render(request, 'jungle.html', {
+        'avg_cs': avg_cs,
+        'avg_kda': avg_kda,
+        'avg_gold': avg_gold,
+        'avg_games_played': avg_games_played,
+        'heroes': heroes,
+        'win_rates': win_rates,
+        'pick_rates': pick_rates
+    })
+
 
 def middle(request):
-    return render(request, 'middle.html')
+    # 获取前五个英雄的名字
+    top_heroes = list(
+        loldata.objects.filter(role='中单', tier='challenger').order_by('id').values_list('hero', flat=True)[:5])
+
+    # 使用这些英雄名字进行查询
+    hero_statistics_data = hero_statistics.objects.filter(
+        hero__in=top_heroes,
+        tier='all',
+        queue_type='ranked'
+    )
+
+    # 转换查询集为列表以便处理
+    hero_statistics_list = list(hero_statistics_data.values('hero', 'win', 'pick'))
+
+    # 提取数据
+    heroes = [item['hero'] for item in hero_statistics_list]
+    win_rates = [item['win'] for item in hero_statistics_list]
+    pick_rates = [item['pick'] for item in hero_statistics_list]
+
+    # 计算平均值
+    avg_cs = hero_statistics_data.aggregate(Avg('cs'))['cs__avg']
+    avg_kda = hero_statistics_data.aggregate(Avg('kda'))['kda__avg']
+    avg_gold = hero_statistics_data.aggregate(Avg('gold'))['gold__avg']
+    avg_games_played = hero_statistics_data.aggregate(Avg('games_played'))['games_played__avg']
+
+    return render(request, 'middle.html', {
+        'avg_cs': avg_cs,
+        'avg_kda': avg_kda,
+        'avg_gold': avg_gold,
+        'avg_games_played': avg_games_played,
+        'heroes': heroes,
+        'win_rates': win_rates,
+        'pick_rates': pick_rates
+    })
 
 def ranked_flex(request):
     return render(request, 'ranked_flex.html')
@@ -338,7 +438,75 @@ def ranked_solo(request):
 
 
 def support(request):
-    return render(request, 'support.html')
+    #获取前五个英雄的名字
+    top_heroes = list(loldata.objects.filter(role='辅助', tier='challenger').order_by('id').values_list('hero', flat=True)[:5])
+
+    #使用这些英雄名字进行查询
+    hero_statistics_data = hero_statistics.objects.filter(
+        hero__in=top_heroes,
+        tier='all',
+        queue_type='ranked'
+    )
+
+    # 转换查询集为列表以便处理
+    hero_statistics_list = list(hero_statistics_data.values('hero', 'win', 'pick'))
+
+    # 提取数据
+    heroes = [item['hero'] for item in hero_statistics_list]
+    win_rates = [item['win'] for item in hero_statistics_list]
+    pick_rates = [item['pick'] for item in hero_statistics_list]
+
+    # 计算平均值
+    avg_cs = hero_statistics_data.aggregate(Avg('cs'))['cs__avg']
+    avg_kda = hero_statistics_data.aggregate(Avg('kda'))['kda__avg']
+    avg_gold = hero_statistics_data.aggregate(Avg('gold'))['gold__avg']
+    avg_games_played = hero_statistics_data.aggregate(Avg('games_played'))['games_played__avg']
+
+    return render(request, 'support.html', {
+        'avg_cs': avg_cs,
+        'avg_kda': avg_kda,
+        'avg_gold': avg_gold,
+        'avg_games_played': avg_games_played,
+        'heroes': heroes,
+        'win_rates': win_rates,
+        'pick_rates': pick_rates
+    })
+
+
+from django.db.models import Avg
 
 def top(request):
-    return render(request, 'top.html')
+    #获取前五个英雄的名字
+    top_heroes = list(loldata.objects.filter(role='上单',tier='challenger' ).order_by('id').values_list('hero', flat=True)[:5])
+
+    #使用这些英雄名字进行查询
+    hero_statistics_data = hero_statistics.objects.filter(
+        hero__in=top_heroes,
+        tier='all',
+        queue_type='ranked'
+    )
+
+    # 转换查询集为列表以便处理
+    hero_statistics_list = list(hero_statistics_data.values('hero', 'win', 'pick'))
+
+    # 提取数据
+    heroes = [item['hero'] for item in hero_statistics_list]
+    win_rates = [item['win'] for item in hero_statistics_list]
+    pick_rates = [item['pick'] for item in hero_statistics_list]
+
+    # 计算平均值
+    avg_cs = hero_statistics_data.aggregate(Avg('cs'))['cs__avg']
+    avg_kda = hero_statistics_data.aggregate(Avg('kda'))['kda__avg']
+    avg_gold = hero_statistics_data.aggregate(Avg('gold'))['gold__avg']
+    avg_games_played = hero_statistics_data.aggregate(Avg('games_played'))['games_played__avg']
+
+    return render(request, 'top.html', {
+        'avg_cs': avg_cs,
+        'avg_kda': avg_kda,
+        'avg_gold': avg_gold,
+        'avg_games_played': avg_games_played,
+        'heroes': heroes,
+        'win_rates': win_rates,
+        'pick_rates': pick_rates
+    })
+
