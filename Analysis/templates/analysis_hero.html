@@ -25,7 +25,7 @@
   <div class="ctn-preloader">
     <div class="round_spinner">
       <div class="spinner"></div>
-      <img src="images/loading-logo.png" alt="">
+{#      <img src="images/loading-logo.png" alt="">#}
     </div>
   </div>
 </div>
@@ -82,6 +82,7 @@
                 <li> <a href="{% url 'bestteam_normal' %}">召唤师峡谷</a> </li>
                 <li> <a href="{% url 'bestteam_aram' %}">极地大乱斗</a> </li>
 
+
               </ul>
             </li>
             <li class="nav-item nav-item-has-subnav">
@@ -89,11 +90,6 @@
                 <i class="mdi mdi-tune"></i>
                 <span>相关数据总览</span>
               </a>
-                <ul class="nav nav-subnav">
-                <li> <a href="{% url 'analysis' %}">数据展示</a> </li>
-                <li> <a href="{% url 'analysis_hero' %}">英雄数据分析</a> </li>
-
-              </ul>
 
             </li>
 
@@ -130,7 +126,7 @@
         </div>
 
         <ul class="navbar-right d-flex align-items-center">
-             League of Legends
+
           <!--切换主题配色-->
 		  <li class="dropdown dropdown-skin">
 		    <span data-bs-toggle="dropdown" class="icon-item">
@@ -279,7 +275,44 @@
 			  </li>
 		    </ul>
 		  </li>
-
+          <!--End 切换主题配色-->
+{#          <!--个人头像内容-->#}
+{#          <li class="dropdown">#}
+{#            <a href="javascript:void(0)" data-bs-toggle="dropdown" class="dropdown-toggle">#}
+{#              <img class="avatar-md rounded-circle" src="images/users/avatar.jpg" alt="笔下光年" />#}
+{#              <span style="margin-left: 10px;">笔下光年</span>#}
+{#            </a>#}
+{#            <ul class="dropdown-menu dropdown-menu-end">#}
+{#              <li>#}
+{#                <a class="dropdown-item" href="lyear_pages_profile.html"#}
+{#                  href="javascript:void(0)">#}
+{#                  <i class="mdi mdi-account"></i>#}
+{#                  <span>个人信息</span>#}
+{#                </a>#}
+{#              </li>#}
+{#              <li>#}
+{#                <a class="dropdown-item" href="lyear_pages_edit_pwd.html"#}
+{#                  href="javascript:void(0)">#}
+{#                  <i class="mdi mdi-lock-outline"></i>#}
+{#                  <span>修改密码</span>#}
+{#                </a>#}
+{#              </li>#}
+{#              <li>#}
+{#                <a class="dropdown-item" href="javascript:void(0)">#}
+{#                  <i class="mdi mdi-delete"></i>#}
+{#                  <span>清空缓存</span>#}
+{#                </a>#}
+{#              </li>#}
+{#              <li class="dropdown-divider"></li>#}
+{#              <li>#}
+{#                <a class="dropdown-item" href="lyear_pages_login_1.html">#}
+{#                  <i class="mdi mdi-logout-variant"></i>#}
+{#                  <span>退出登录</span>#}
+{#                </a>#}
+{#              </li>#}
+{#            </ul>#}
+{#          </li>#}
+          <!--End 个人头像内容-->
         </ul>
 
       </nav>
@@ -288,213 +321,91 @@
     <!--End 头部信息-->
 
     <!--页面主要内容-->
-    <main class="lyear-layout-content">
-
-      <div class="container-fluid">
-
-        <div class="row">
-
-          <div class="col-md-6 col-xl-3">
-            <div class="card bg-primary text-white">
-              <div class="card-body">
-                <div class="d-flex justify-content-between">
-<span class="avatar-md rounded-circle bg-white bg-opacity-25 avatar-box">
-  <img src="https://opgg-static.akamaized.net/meta/images/lol/14.17.1/champion/Jhin.png?image=e_upscale,c_crop,h_103,w_103,x_9,y_9/q_auto:good,f_webp,w_160,h_160&v=1724034092925" alt="Jhin Avatar">
-</span>
-
-                  <span class="fs-4">{{ most_played_games }}场</span>
-                </div>
-                <div class="text-end">登场次数最多的英雄是   {{ most_played_hero }}</div>
-              </div>
+<!-- 页面主要内容 -->
+<main class="lyear-layout-content">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <!-- 用户输入英雄名表单 -->
+            <div class="col-lg-6 mb-4 text-center">
+                <form id="heroForm" method="POST" action="{% url 'analysis_hero' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="heroName">输入英雄名:</label>
+                        <input type="text" class="form-control" id="heroName" name="heroName" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">提交</button>
+                </form>
             </div>
-          </div>
-
-          <div class="col-md-6 col-xl-3">
-            <div class="card bg-danger text-white">
-              <div class="card-body">
-                <div class="d-flex justify-content-between">
-                 <span class="avatar-md rounded-circle bg-white bg-opacity-25 avatar-box">
-  <img src="https://opgg-static.akamaized.net/meta/images/lol/14.17.1/champion/Draven.png?image=e_upscale,c_crop,h_103,w_103,x_9,y_9/q_auto:good,f_webp,w_160,h_160&v=1724034092925" alt="Draven Avatar">
-</span>
-
-                  <span class="fs-4">{{ most_gold_amount}}</span>
-                </div>
-                <div class="text-end">最能打钱的英雄是 {{ most_gold_hero }}</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-xl-3">
-            <div class="card bg-success text-white">
-              <div class="card-body">
-                <div class="d-flex justify-content-between">
-<span class="avatar-md rounded-circle bg-white bg-opacity-25 avatar-box">
-  <img src="https://opgg-static.akamaized.net/meta/images/lol/14.17.1/champion/Sivir.png?image=e_upscale,c_crop,h_103,w_103,x_9,y_9/q_auto:good,f_webp,w_160,h_160&v=1724034092925" alt="Sivir Avatar">
-</span>
-
-                  <span class="fs-4">补刀数{{ most_cs_amount }}</span>
-                </div>
-                <div class="text-end">补刀最多的英雄是 {{ most_cs_hero }}</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-xl-3">
-            <div class="card bg-purple text-white">
-              <div class="card-body">
-                <div class="d-flex justify-content-between">
-<span class="avatar-md rounded-circle bg-white bg-opacity-25 avatar-box">
-  <img src="https://opgg-static.akamaized.net/meta/images/lol/latest/champion/Aurora.png?image=e_upscale,c_crop,h_103,w_103,x_9,y_9/q_auto:good,f_webp,w_160,h_160&v=1724034092925" alt="Aurora Avatar">
-</span>
-
-                  <span class="fs-4">{{ most_ban_rate }}%</span>
-                </div>
-                <div class="text-end">禁用率最高的英雄是 {{ most_ban_hero }}</div>
-              </div>
-            </div>
-          </div>
-
         </div>
 
-        <div class="row">
-
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">全模式全段位英雄胜率前七位</div>
-              </div>
-              <div class="card-body">
-                <canvas class="js-chartjs-bars"></canvas>
-              </div>
+        <div class="row justify-content-center">
+            <!-- 折线图容器 -->
+            <div class="col-lg-10 col-md-12 mb-3">
+                <h6 class="text-center">英雄段位胜率折线图</h6>
+                <canvas id="chart-line-hero"></canvas>
             </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">使用波动图表</div>
-              </div>
-              <div class="card-body">
-                <canvas class="js-chartjs-lines"></canvas>
-              </div>
-            </div>
-          </div>
-
         </div>
+    </div>
+</main>
 
-        <div class="row">
-
-          <div class="col-lg-12">
-            <div class="card">
-              <header class="card-header">
-                <div class="card-title">英雄热榜(top10)</div>
-              </header>
-              <div class="card-body">
-                <div class="table-responsive">
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>统计（全模式全段位全球）#</th>
-            <th>英雄</th>
-            <th>总场次</th>
-            <th>胜率</th>
-            <th>每局登场率</th>
-            <th>热度</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for stat in hero_statistics %}
-        <tr>
-            <td>{{ forloop.counter }}</td> <!-- 统计编号 -->
-            <td>{{ stat.hero }}</td> <!-- 英雄 -->
-            <td>{{ stat.games_played }}</td> <!-- 总场次 -->
-            <td>{{ stat.win }}%</td> <!-- 胜率 -->
-            <td>{{ stat.pick }}%</td> <!-- 每局登场率 -->
-            <td>
-                <div class="progress progress-xs">
-                    <div class="progress-bar progress-bar-striped
-                        {% if stat.popularity < 10 %}
-                            bg-success
-                        {% elif stat.popularity < 25 %}
-                            bg-warning
-                        {% elif stat.popularity < 50 %}
-                            bg-danger
-                        {% else %}
-                            bg-success
-                        {% endif %}
-                    " style="width: {{ stat.popularity }}%;"></div>
-                </div>
-            </td> <!-- 热度 -->
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </main>
-    <!--End 页面主要内容-->
-  </div>
-</div>
-
+<!-- 引入必要的 JS 库 -->
 <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/perfect-scrollbar.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery.cookie.min.js' %}"></script>
-<!--引入chart插件js-->
 <script type="text/javascript" src="{% static 'js/chart.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/main.min.js' %}"></script>
+
 <script type="text/javascript">
-$(document).ready(function(e) {
-	var $dashChartBarsCnt = jQuery('.js-chartjs-bars')[0].getContext('2d'),
-		$dashChartLinesCnt = jQuery('.js-chartjs-lines')[0].getContext('2d');
-
-var heroNames = {{ top_7_hero_names|safe }};
-        var winrates = {{ top_7_winrates|safe }};
-
-        var $dashChartBarsData = {
-            labels: heroNames, // 使用英雄名称作为标签
-            datasets: [{
-                label: '胜率 (%)',
-                borderWidth: 1,
-                borderColor: 'rgba(0, 0, 0, 0)',
-                backgroundColor: 'rgba(0, 123, 255,0.5)',
-                hoverBackgroundColor: "rgba(0, 123, 255, 0.7)",
-                hoverBorderColor: "rgba(0, 0, 0, 0)",
-                data: winrates // 使用胜率数据
-            }]
-        };
-	var $dashChartLinesData = {
-		labels: ['黑铁', '青铜', '白银', '黄金', '铂金', '钻石', ' 宗师', '大师', '王者', '翡翠'
-		],
-		datasets: [{
-			label: '使用率',
-			data: [20, 25, 40, 30, 45, 40, 55, 40, 48, 40, 42, 50],
-			borderColor: '#007bff',
-			backgroundColor: 'rgba(0, 123, 255, 0.175)',
-			borderWidth: 1,
-			fill: false,
-			lineTension: 0.5
-		}]
-	};
-
-	new Chart($dashChartBarsCnt, {
-		type: 'bar',
-		data: $dashChartBarsData
-	});
-
-	var myLineChart = new Chart($dashChartLinesCnt, {
-		type: 'line',
-		data: $dashChartLinesData,
-	});
-});
+    // 判断是否有数据
+    {% if win_rates %}
+    new Chart($("#chart-line-hero"), {
+        type: 'line',
+        data: {
+            labels: {{ tiers|safe }},  // X轴为段位
+            datasets: [
+                {
+                    label: '{{ hero_name }}的胜率',
+                    data: {{ win_rates|safe }},  // 胜率数据
+                    borderColor: "#007bff",
+                    backgroundColor: "rgba(0, 123, 255, 0.3)",
+                    fill: true,
+                    pointStyle: 'circle',
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+              // 确保图表可以随容器大小调整
+            plugins: {
+                title: {
+                    display: true,
+                    text: '{{ hero_name }}在不同段位的胜率'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.parsed.y}%`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+    {% endif %}
 </script>
 </body>
 </html>

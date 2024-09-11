@@ -36,6 +36,8 @@ urlpatterns = [
     path('ranked_solo/', views.ranked_solo, name='ranked_solo'),
     path('support/', views.support, name='support'),
     path('top/', views.top, name='top'),
+    path('analysis/', views.analysis, name='analysis'),
+    path('analysis_hero/', views.analysis_hero, name='analysis_hero')
     # path("hero_list/", views.List.as_view()),
 
 ]
