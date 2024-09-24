@@ -362,12 +362,34 @@
 <script type="text/javascript" src="{% static 'js/main.min.js' %}"></script>
 
 <script type="text/javascript">
+
+    const tierTranslations = {
+        'iron': '坚韧黑铁',
+        'bronze': '英勇黄铜',
+        'silver': '不屈白银',
+        'gold': '荣耀黄金',
+        'platinum': '华贵铂金',
+        'emerald': '流光翡翠',
+        'diamond': '璀璨钻石',
+        'master': '超凡大师',
+        'grandmaster': '傲世宗师',
+        'challenger': '最强王者'
+    };
+
+
+
+
+
+
     // 判断是否有数据
     {% if win_rates %}
+ const translatedTiers = {{ tiers|safe }}.map(tier => tierTranslations[tier] || tier);
+
+
     new Chart($("#chart-line-hero"), {
         type: 'line',
         data: {
-            labels: {{ tiers|safe }},  // X轴为段位
+            labels: translatedTiers,  // X轴为段位
             datasets: [
                 {
                     label: '{{ hero_name }}的胜率',
