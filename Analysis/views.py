@@ -1,3 +1,5 @@
+from random import random
+
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -211,6 +213,7 @@ def bestteam_arena(request):
 
 
 def bestteam_normal(request):
+    from django.db.models import Avg
     if request.method == 'POST':
         # 获取用户提交的数据
         role = request.POST.get('role')
@@ -228,17 +231,51 @@ def bestteam_normal(request):
         # 查询胜率最高的五位英雄
         print(role, queue_type, tier, remark)
         loldata = models.loldata
+
         top_heroes = models.loldata.objects.filter(
             role=role,
             tier=tier
-        ).order_by('-win')[:5]  # 按照胜率降序排序并取前五个
+        ).order_by('-win')[:10]  # 按照胜率降序排序并取前五个
 
         # 提取英雄名字
         hero_names = [hero.hero for hero in top_heroes]
 
-        # 返回 JSON 响应
+        # 记录高低段位的胜率差距
+        recommended_heroes = []
 
-        return JsonResponse({'success': True, 'heroes': hero_names})
+        for hero_name in hero_names:
+            # 查询该英雄在不同段位的胜率
+            win_rates = models.loldata.objects.filter(hero=hero_name).values('tier', 'win')
+
+            # 计算高段位和低段位的胜率
+            high_tier_win = \
+            win_rates.filter(tier__in=['emerald', 'diamond', 'master', 'grandmaster', 'challenger']).aggregate(
+                avg_win=Avg('win'))['avg_win']
+            low_tier_win = \
+            win_rates.filter(tier__in=['iron', 'bronze', 'silver', 'gold', 'platinum']).aggregate(avg_win=Avg('win'))[
+                'avg_win']
+
+            # 标记为难度更高的英雄
+            if high_tier_win and low_tier_win and (high_tier_win - low_tier_win) > 0.1:  # 差距大于10%
+                recommended_heroes.append({
+                    'hero': hero_name,
+                    'difficulty': '高'
+                })
+            else:
+                recommended_heroes.append({
+                    'hero': hero_name,
+                    'difficulty': '普通'
+                })
+
+        print(recommended_heroes)
+
+        if remark == '糕手':
+            recommended_heroes = [hero for hero in recommended_heroes if hero['difficulty'] != '高']
+
+        recommended_hero_names = [hero['hero'] for hero in recommended_heroes]
+        # 返回 JSON 响应
+        print(recommended_hero_names)
+        return JsonResponse({'success': True, 'heroes': recommended_hero_names})
 
     else:
         return render(request, 'bestteam_normal.html')
@@ -497,10 +534,10 @@ def top(request):
 
 def analysis(request):
     # 查询 KDA、gold、cs 和 pick 排名前 7 的英雄
-    top_kda_heroes = hero_statistics.objects.filter(tier="all",queue_type="ranked").order_by('-kda')[:7]
-    top_gold_heroes = hero_statistics.objects.filter(tier="all",queue_type="ranked").order_by('-gold')[:7]
-    top_cs_heroes = hero_statistics.objects.filter(tier="all",queue_type="ranked").order_by('-cs')[:7]
-    top_pick_heroes = hero_statistics.objects.filter(tier="all",queue_type="ranked").order_by('-pick')[:7]
+    top_kda_heroes = hero_statistics.objects.filter(tier="all", queue_type="ranked").order_by('-kda')[:7]
+    top_gold_heroes = hero_statistics.objects.filter(tier="all", queue_type="ranked").order_by('-gold')[:7]
+    top_cs_heroes = hero_statistics.objects.filter(tier="all", queue_type="ranked").order_by('-cs')[:7]
+    top_pick_heroes = hero_statistics.objects.filter(tier="all", queue_type="ranked").order_by('-pick')[:7]
 
     # 提取英雄名字和对应的统计数据
     context = {
@@ -521,27 +558,24 @@ def analysis(request):
 
 
 def analysis_hero(request, ):
+    if request.method == 'POST':
+        # 获取用户提交的英雄名
+        hero_name = request.POST.get('heroName')
 
+        # 查询该英雄在不同段位的胜率
+        hero_data = hero_statistics.objects.filter(hero=hero_name, queue_type='ranked').order_by('tier')
 
-        if request.method == 'POST':
-            # 获取用户提交的英雄名
-            hero_name = request.POST.get('heroName')
+        # 提取段位和胜率数据
+        tiers = [data.tier for data in hero_data]
+        win_rates = [data.win for data in hero_data]
 
-            # 查询该英雄在不同段位的胜率
-            hero_data = hero_statistics.objects.filter(hero=hero_name).order_by('tier')
+        # 将数据传递给模板
+        context = {
+            'hero_name': hero_name,
+            'tiers': tiers,
+            'win_rates': win_rates,
+        }
+        return render(request, 'analysis_hero.html', context)
 
-            # 提取段位和胜率数据
-            tiers = [data.tier for data in hero_data]
-            win_rates = [data.win for data in hero_data]
-
-            # 将数据传递给模板
-            context = {
-                'hero_name': hero_name,
-                'tiers': tiers,
-                'win_rates': win_rates,
-            }
-            return render(request, 'analysis_hero.html', context)
-
-        # 处理 GET 请求，展示初始页面
-        return render(request, 'analysis_hero.html')
-
+    # 处理 GET 请求，展示初始页面
+    return render(request, 'analysis_hero.html')
